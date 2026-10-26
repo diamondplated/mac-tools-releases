@@ -1,0 +1,49 @@
+name: CI
+
+# This repo is the public face of Mac Tools: its README and SECURITY.md are
+# what users and reporters read. Prove every link resolves and nothing points
+# at the private source repo, which 404s for everyone outside it.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: [self-hosted, toast]
+    # Andrew's Linux runner; GitHub-hosted runners are not used here.
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: No links to the private source repo
+        run: |
+          set -euo pipefail
+          if grep -nE 'github\.com/diamondplated/mac-tools([/)#" ]|$)' -- *.md; then
+            echo "::error::diamondplated/mac-tools is private; link to mac-tools-releases instead"
+            exit 1
+          fi
+
+      - name: Every link resolves
+        run: |
+          set -euo pipefail
+          fail=0
+          for url in $(grep -ohE 'https?://[^) >"`]+' -- *.md | sort -u); do
+            case "$url" in
+              # Report forms need a signed-in GitHub user, so an anonymous
+              # request can't tell enabled from disabled.
+              */security/advisories/new) echo "skip (login only): $url"; continue ;;
+            esac
+            code=$(curl -s -o /dev/null -L --retry 2 -w '%{http_code}' "$url")
+            if [ "$code" -ge 400 ]; then
+              echo "::error::$url returned $code"; fail=1
+            else
+              echo "ok $code: $url"
+            fi
+          done
+          exit $fail
