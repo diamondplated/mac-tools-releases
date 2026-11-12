@@ -2,7 +2,7 @@ name: CI
 
 # This repo is the public face of Mac Tools: its README and SECURITY.md are
 # what users and reporters read. Prove every link resolves and nothing points
-# at the private source repo, which 404s for everyone outside it.
+# at the source repo's old name; it is public now as diamondplated/mac-apps.
 
 on:
   pull_request:
@@ -22,11 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: No links to the private source repo
+      - name: No links to the source repo's old name
         run: |
           set -euo pipefail
           if grep -nE 'github\.com/diamondplated/mac-tools([/)#" ]|$)' -- *.md; then
-            echo "::error::diamondplated/mac-tools is private; link to mac-tools-releases instead"
+            echo "::error::diamondplated/mac-tools was renamed; link to diamondplated/mac-apps instead"
             exit 1
           fi
 

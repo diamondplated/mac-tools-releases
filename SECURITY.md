@@ -7,8 +7,9 @@ ScrollSplit, and LinkRoutes.
 
 Use the **Report a vulnerability** form on this repository's
 [Security tab](https://github.com/diamondplated/mac-tools-releases/security/advisories/new)
-(GitHub private vulnerability reporting). The source repository is private, so
-reports come here. Do not open a public issue for an unpatched security problem.
+(GitHub private vulnerability reporting), or the same form on the source
+repository, [diamondplated/mac-apps](https://github.com/diamondplated/mac-apps/security/advisories/new).
+Do not open a public issue for an unpatched security problem.
 
 If private vulnerability reporting is unavailable, contact the maintainer through
 a private channel listed on the repository owner's GitHub profile. Include the
