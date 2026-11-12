@@ -21,4 +21,4 @@ Mac Tools updates itself automatically and verifies the signed update feed and d
 
 The standalone ScreenWren releases and Homebrew cask are no longer updated; ScreenWren now ships only in Mac Tools.
 
-This repository contains public downloads, release metadata, and update feeds. Application source is maintained separately in a private repository. Signing keys and credentials are not published. To report a security problem, see [SECURITY.md](SECURITY.md).
+This repository contains public downloads, release metadata, and update feeds. Application source is public at [diamondplated/mac-apps](https://github.com/diamondplated/mac-apps). Signing keys and credentials are not published. To report a security problem, see [SECURITY.md](SECURITY.md).
